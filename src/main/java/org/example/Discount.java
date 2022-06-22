@@ -37,11 +37,17 @@ public class Discount {
     }
 
     @Test
-    public void discountLessThen20Books() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        logIn();
-        driver.findElement(By.xpath("/html/body/center/table/tbody/tr[5]/td/table/tbody/tr/td[1]/table/tbody/tr[3]/td/a")).click();
+    public void discountWithLessThen20Books () {
+        // System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        // WebDriver driver = new ChromeDriver();
+        // logIn();
+        driver.get("https://www.sharelane.com/cgi-bin/show_book.py?book_id=1");
+        driver.findElement(By.cssSelector("img[src='images/add_to_cart.gif']"));
+        driver.findElement(By.cssSelector("a[href='./shopping_cart.py']"));
+        driver.findElement(By.name("q")).clear();
+        driver.findElement(By.name("q")).sendKeys(19);
+        WebElement discount = driver.findElement(By.xpath("//b[normalize-space()='0']"));
+        Assert.assertTrue(discount.isDisplayed(), "discount, % is wrong");
 
     }
 
