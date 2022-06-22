@@ -4,10 +4,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class Discount {
-    @Test
+    @BeforeMethod
     public void logIn() {
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
@@ -38,16 +39,15 @@ public class Discount {
 
     @Test
     public void discountWithLessThen20Books () {
-        // System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-        // WebDriver driver = new ChromeDriver();
-        // logIn();
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        logIn();
         driver.get("https://www.sharelane.com/cgi-bin/show_book.py?book_id=1");
         driver.findElement(By.cssSelector("img[src='images/add_to_cart.gif']"));
         driver.findElement(By.cssSelector("a[href='./shopping_cart.py']"));
         driver.findElement(By.name("q")).clear();
         driver.findElement(By.name("q")).sendKeys(19);
         WebElement discount = driver.findElement(By.xpath("//b[normalize-space()='0']"));
-        Assert.assertTrue(discount.isDisplayed(), "discount, % is wrong");
 
     }
 
